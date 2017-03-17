@@ -28,6 +28,13 @@ public class Individuo {
         calculaFitnessyPeso();
       
     }
+     public Individuo(int geno[]) {
+        this.genotipo =  geno.clone();
+       
+        calculaFitnessyPeso();
+      
+    }
+    
     public Individuo (Individuo ind){
         this.genotipo = ind.getGenotipo().clone();
         this.fitness = ind.getFitness();

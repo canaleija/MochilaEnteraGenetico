@@ -26,6 +26,7 @@ public class Poblacion {
         for (int x=0; x < tamPob;x++){
            this.individuos.add(new Individuo());
         }
+   
     }
      public Poblacion(Poblacion pob){
         this.tamPob = pob.getTamPob();
@@ -33,6 +34,7 @@ public class Poblacion {
         for (int x=0; x < tamPob;x++){
            this.individuos.add(new Individuo());
         }
+    
     }
 
     /**
@@ -53,6 +55,7 @@ public class Poblacion {
      * @return the mejor
      */
     public Individuo getMejor() {
+             calcularMejoryPeor();
         return mejor;
     }
 
@@ -60,6 +63,7 @@ public class Poblacion {
      * @return the peor
      */
     public Individuo getPeor() {
+             calcularMejoryPeor();
         return peor;
     }
 
@@ -71,5 +75,22 @@ public class Poblacion {
         return aux;
     }
     
+    private void calcularMejoryPeor(){
+       
+        if (!this.individuos.isEmpty()){
+          // buscamos
+         this.mejor = this.individuos.get(0);
+         this.peor = this.individuos.get(0);
+         for (int x=0; x < this.individuos.size();x++){
+            if (this.individuos.get(x).getFitness()>mejor.getFitness()){
+              this.mejor = this.individuos.get(x);
+            }
+            if (this.individuos.get(x).getFitness()<peor.getFitness()){
+             this.peor = this.individuos.get(x);
+            }
+         }          
+        }
+    
+    }
     
 }
