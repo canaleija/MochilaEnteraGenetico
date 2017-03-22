@@ -37,14 +37,17 @@ public class Herramientas {
         }
         return false;
     }
-    public static void guardar (ArrayList<Item> items, String nombreAchivo){
+ public static void guardar (ArrayList<Item> items){
     File f;
     FileWriter w;
     BufferedWriter bw;
     PrintWriter wr;
+    JFileChooser guardar= new JFileChooser();
+    guardar.setApproveButtonText("Guardar");
+    guardar.showSaveDialog(null);
     
         try{
-            f=new File(nombreAchivo+".txt");
+            f=new File(guardar.getSelectedFile()+".txt");
             w=new FileWriter(f);
             bw=new BufferedWriter (w);
             wr=new PrintWriter(bw);
@@ -58,7 +61,7 @@ public class Herramientas {
             wr.close();
             bw.close();
         }catch(Exception e){
-            JOptionPane.showMessageDialog(null,"Ha sucedido un error"+ e);
+            JOptionPane.showMessageDialog(null,"A susedido un error"+ e);
         } 
         
     }

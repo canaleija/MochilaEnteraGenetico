@@ -19,6 +19,11 @@ public class Poblacion {
     private Individuo mejor;
     private Individuo peor;
     
+    public Poblacion (){
+        this.tamPob = 0;
+        this.individuos = new LinkedList<>();
+    }
+    
     // por defecto / aleatorio
     public Poblacion(int tamPob){
         this.tamPob = tamPob;
@@ -91,6 +96,10 @@ public class Poblacion {
          }          
         }
     
+    }
+     public void agregarHabitante(Individuo ind) {
+        this.individuos.add(new Individuo(ind));
+        this.tamPob++;
     }
     
 }

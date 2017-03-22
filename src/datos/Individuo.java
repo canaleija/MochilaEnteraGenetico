@@ -7,6 +7,7 @@ package datos;
 
 import java.util.ArrayList;
 import java.util.Random;
+import mochilaenteragenetico.Herramientas;
 
 /**
  *
@@ -23,9 +24,14 @@ public class Individuo {
    
     // aleatoria 
     public Individuo() {
+        
+        do{
         this.genotipo = new int[articulos.size()];
+        // validación individuo
         generarDeFormaAleatoria();
         calculaFitnessyPeso();
+        }while(!this.isValido());
+       
       
     }
      public Individuo(int geno[]) {
@@ -81,5 +87,9 @@ public class Individuo {
         return peso;
     }
     
+    public boolean isValido(){
+    
+    return Herramientas.validarIndividuo(this);
+    }
     
 }
