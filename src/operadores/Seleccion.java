@@ -29,9 +29,21 @@ public class Seleccion {
     public static void generarMuestreoNAleatorio (Poblacion pOrigen, Poblacion pDestino, int n){
         for (int x=0; x<n;x++){
            pDestino.getIndividuos().add(new Individuo(seleccionarAleatorio(pOrigen)));
-        
         }
-            
     }
+    public static Individuo seleccionRuleta(Poblacion pob){
+      
+        double pos = pob.getFitnessPoblacion()*Math.random();
+        double suma=0;
+        // ahora costruimos la ruleta
+        for (Individuo ind: pob.getIndividuos()){
+          suma += ind.getFitness();
+          if(suma>=pos){
+            return new Individuo(ind);
+          }
+        }
+        return new Individuo(pob.getIndividuos().get(0));
+    }
+    
     
 }

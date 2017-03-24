@@ -18,6 +18,7 @@ public class Poblacion {
     private int tamPob;
     private Individuo mejor;
     private Individuo peor;
+    private int fitnessPoblacion;
     
     public Poblacion (){
         this.tamPob = 0;
@@ -100,6 +101,18 @@ public class Poblacion {
      public void agregarHabitante(Individuo ind) {
         this.individuos.add(new Individuo(ind));
         this.tamPob++;
+    }
+
+    /**
+     * @return the fitnessPoblacion
+     */
+    public int getFitnessPoblacion() {
+        int acum =0;
+        for (Individuo ind: individuos){
+        acum+=ind.getFitness();
+        }
+        this.fitnessPoblacion = acum;
+        return fitnessPoblacion;
     }
     
 }

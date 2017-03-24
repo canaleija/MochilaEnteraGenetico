@@ -21,12 +21,23 @@ public class MochilaEnteraGenetico {
      * @param args the command line arguments
      */
     public static void main(String[] args) {
-        ArrayList<Item> l = Herramientas.generarItemAleatorio(10, 10, 20);
-        Herramientas.guardar(l);
+        ArrayList<Item> l = Herramientas.recuperarArticulosMochila();
+       
         Individuo.articulos = l;
-        Individuo.capacidadMochila=5;
-        Individuo i1 = new Individuo();
-        System.out.println(" f:"+i1.getFitness()+" "+i1.isValido());
+        Individuo.capacidadMochila=71;
+        int suma =0;
+        int sumaP = 0;
+        for (Item it:Individuo.articulos){
+           suma+=it.getValor();
+           sumaP+=it.getPeso();
+        }
+        System.out.println("Suma valores art: "+ suma);
+        System.out.println("Suma pesos art: "+ sumaP);
+        
+        GeneticoV1 g1 = new GeneticoV1(100, 1000, 0.35);
+        g1.evolucionar();
+        
+        
         System.out.println();
          
         

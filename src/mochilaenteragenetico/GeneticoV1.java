@@ -38,14 +38,16 @@ public class GeneticoV1 {
             for(int i=0; i < this.tamano_poblacion;i++){
                // proceso de seleccion de padre y madre
                Individuo padre = Seleccion.selccionarMejor(poblacion);
-               Individuo madre = Seleccion.seleccionarAleatorio(poblacion);
+               Individuo madre = Seleccion.seleccionRuleta(poblacion);
                // ejecutamos la cruza y obtenemos al hijo
-               Individuo hijo = Cruza.cruzaConMascara(madre, padre, Mascaras.generarMascaraAleatoria(Individuo.articulos.size()));
+               Individuo hijo;
+               do {
+               hijo = Cruza.cruzaConMascara(madre, padre, Mascaras.generarMascaraAleatoria(Individuo.articulos.size()));
                // dependiendo de una prob. muta se cambia el hijo
                if (Math.random()<=this.prob_muta){
                Muta.mutaGenAleatorio(hijo);
                
-               }
+               }}while(!hijo.isValido());
 // agrega el hijo a la nueva poblacion
                nuevaP.agregarHabitante(hijo);
             }
