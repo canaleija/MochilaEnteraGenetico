@@ -49,13 +49,27 @@ public class GeneticoV1 {
                
                }}while(!hijo.isValido());
 // agrega el hijo a la nueva poblacion
+             
                nuevaP.agregarHabitante(hijo);
             }
             // actualizamos la población 
             this.poblacion = new Poblacion(nuevaP);
             Individuo mejor =  this.poblacion.getMejor();
-            System.out.println(e+" - fitness de: "+mejor.getFitness()+" "+mejor.isValido());
+             
+            if (mejor.getFitness()==175){
+             System.out.println();
+             }
+            //99429
+            if (mejor.getFitness()>=99400){
+                System.out.println(e+" - fitness de: "+mejor.getFitness()+" peso:  "+ mejor.getPeso()+" "+mejor.isValido()+"--!!!!!!!");
         
+            }
+//            else{
+//                System.out.println(e+" - fitness de: "+mejor.getFitness()+" peso:  "+ mejor.getPeso()+" "+mejor.isValido());
+//        
+//            }
+            
+            
         }
         System.out.println(this.poblacion.getMejor().toString());
     

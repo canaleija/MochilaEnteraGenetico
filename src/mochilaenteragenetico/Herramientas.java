@@ -120,8 +120,10 @@ public class Herramientas {
         
         
         for (int x=0; x<cantidad; x++){
-            valor = ranV.nextInt(rangoV);
-            peso = ranP.nextInt(rangoP);
+            valor = ranV.nextInt(rangoV-1);
+            peso = ranP.nextInt(rangoP-1);
+            valor++;
+            peso++;
             Item item = new Item(peso, valor);
             lista.add(item);
         }

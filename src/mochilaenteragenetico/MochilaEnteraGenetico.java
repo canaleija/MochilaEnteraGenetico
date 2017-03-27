@@ -22,9 +22,9 @@ public class MochilaEnteraGenetico {
      */
     public static void main(String[] args) {
         ArrayList<Item> l = Herramientas.recuperarArticulosMochila();
-       
+     
         Individuo.articulos = l;
-        Individuo.capacidadMochila=71;
+        Individuo.capacidadMochila=24698;
         int suma =0;
         int sumaP = 0;
         for (Item it:Individuo.articulos){
@@ -34,7 +34,7 @@ public class MochilaEnteraGenetico {
         System.out.println("Suma valores art: "+ suma);
         System.out.println("Suma pesos art: "+ sumaP);
         
-        GeneticoV1 g1 = new GeneticoV1(100, 1000, 0.35);
+        GeneticoV1 g1 = new GeneticoV1(70, 100000, 0.35);
         g1.evolucionar();
         
         
