@@ -41,6 +41,7 @@ public class JFrameGeneticos extends javax.swing.JFrame {
         jLabelEpocas = new javax.swing.JLabel();
         jBtnEjecutar = new javax.swing.JButton();
         jBtnAumentarE = new javax.swing.JButton();
+        jSlider1 = new javax.swing.JSlider();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -58,6 +59,19 @@ public class JFrameGeneticos extends javax.swing.JFrame {
         });
 
         jBtnAumentarE.setText("Aumentar Epocas");
+        jBtnAumentarE.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jBtnAumentarEActionPerformed(evt);
+            }
+        });
+
+        jSlider1.setMaximum(10);
+        jSlider1.setValue(3);
+        jSlider1.addChangeListener(new javax.swing.event.ChangeListener() {
+            public void stateChanged(javax.swing.event.ChangeEvent evt) {
+                jSlider1StateChanged(evt);
+            }
+        });
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -70,9 +84,10 @@ public class JFrameGeneticos extends javax.swing.JFrame {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jBtnEjecutar, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addGroup(layout.createSequentialGroup()
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                             .addComponent(jLabelEpocas)
-                            .addComponent(jBtnAumentarE))
+                            .addComponent(jBtnAumentarE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(jSlider1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                         .addGap(0, 0, Short.MAX_VALUE)))
                 .addContainerGap())
         );
@@ -89,7 +104,9 @@ public class JFrameGeneticos extends javax.swing.JFrame {
                         .addGap(26, 26, 26)
                         .addComponent(jBtnAumentarE)
                         .addGap(18, 18, 18)
-                        .addComponent(jBtnEjecutar)))
+                        .addComponent(jBtnEjecutar)
+                        .addGap(43, 43, 43)
+                        .addComponent(jSlider1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
@@ -97,8 +114,33 @@ public class JFrameGeneticos extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void jBtnEjecutarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtnEjecutarActionPerformed
-      
+      // crear el hilo y a evolucionar
+       Thread hiloGen = new Thread(genetico);
+       hiloGen.start();
+       
+//       Thread hilo2 = new Thread(new Runnable() {
+//           @Override
+//           public void run() {
+//              while (genetico.isRunnable()){
+//       
+//              jLabelEpocas.setText("Epoca: "+genetico.getE());
+//       }
+//        
+//           }
+//       });
+//       hilo2.start();
+       
     }//GEN-LAST:event_jBtnEjecutarActionPerformed
+
+    private void jBtnAumentarEActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtnAumentarEActionPerformed
+         this.genetico.setE(100);
+    }//GEN-LAST:event_jBtnAumentarEActionPerformed
+
+    private void jSlider1StateChanged(javax.swing.event.ChangeEvent evt) {//GEN-FIRST:event_jSlider1StateChanged
+        double prob = (double)jSlider1.getValue()/10;
+        this.genetico.setProb_muta(prob);
+        System.out.println(this.genetico.getProb_muta());
+    }//GEN-LAST:event_jSlider1StateChanged
 
     /**
      * @param args the command line arguments
@@ -140,6 +182,7 @@ public class JFrameGeneticos extends javax.swing.JFrame {
     private javax.swing.JButton jBtnEjecutar;
     private javax.swing.JLabel jLabelEpocas;
     private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JSlider jSlider1;
     private javax.swing.JTextArea jTextArea;
     // End of variables declaration//GEN-END:variables
 
@@ -148,7 +191,7 @@ public class JFrameGeneticos extends javax.swing.JFrame {
         ArrayList<Item> l = Herramientas.recuperarArticulosMochila();
      
         Individuo.articulos = l;
-        Individuo.capacidadMochila=24698;
+        Individuo.capacidadMochila=100;
         int suma =0;
         int sumaP = 0;
         for (Item it:Individuo.articulos){
@@ -159,13 +202,6 @@ public class JFrameGeneticos extends javax.swing.JFrame {
         System.out.println("Suma pesos art: "+ sumaP);
         
         this.genetico = new GeneticoV1(70, 100000, 0.35);
-               
-        // setear la epoca en la que va
         
-        while (this.genetico.getHiloGenetico().isAlive()){
-        this.jLabelEpocas.setText("Epoca: "+this.genetico.getE());
-        }
-        
-         
     }
 }

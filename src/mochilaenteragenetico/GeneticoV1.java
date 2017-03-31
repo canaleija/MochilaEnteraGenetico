@@ -17,26 +17,40 @@ import operadores.Seleccion;
  * @author Roberto Cruz Leija
  */
 public class GeneticoV1 implements Runnable{
+
+    /**
+     * @param e the e to set
+     */
+    public void setE(int e) {
+        this.e = e;
+    }
+
+    /**
+     * @return the runnable
+     */
+    public boolean isRunnable() {
+        return runnable;
+    }
     private int tamano_poblacion;
     private int epocas;
     private double prob_muta;
     private Poblacion poblacion;
     private int e;
-    private  Thread hiloGenetico;
+    private boolean runnable;
+   
     public GeneticoV1(int tamano_poblacion, int epocas, double prob_muta) {
         
         this.tamano_poblacion = tamano_poblacion;
         this.epocas = epocas;
         this.prob_muta = prob_muta;
         this.poblacion = new Poblacion(tamano_poblacion);
-        hiloGenetico = new Thread(this);
-        hiloGenetico.start();
+        this.runnable = false;
     }
   
    public void evolucionar (){
        // crear un proceso iterativo para simular las epocas
      
-        for ( e=0; getE() < this.epocas;e++){
+        for ( setE(0); getE() < this.epocas;e++){
             // garantizar la creación de una nueva población
             Poblacion nuevaP = new Poblacion(); 
             // tenemos que iterar para construir la nueva generacion
@@ -49,7 +63,7 @@ public class GeneticoV1 implements Runnable{
                do {
                hijo = Cruza.cruzaConMascara(madre, padre, Mascaras.generarMascaraAleatoria(Individuo.articulos.size()));
                // dependiendo de una prob. muta se cambia el hijo
-               if (Math.random()<=this.prob_muta){
+               if (Math.random()<=this.getProb_muta()){
                Muta.mutaGenAleatorio(hijo);
                
                }}while(!hijo.isValido());
@@ -96,21 +110,29 @@ public class GeneticoV1 implements Runnable{
     public int getE() {
         return e;
     }
-
-   
-
+    
     @Override
     public void run() {
+        this.runnable = true;
         evolucionar();
+        this.runnable=false;
     }
 
     /**
-     * @return the hiloGenetico
+     * @param prob_muta the prob_muta to set
      */
-    public Thread getHiloGenetico() {
-        return hiloGenetico;
+    public void setProb_muta(double prob_muta) {
+        this.prob_muta = prob_muta;
     }
 
+    /**
+     * @return the prob_muta
+     */
+    public double getProb_muta() {
+        return prob_muta;
+    }
+
+    
     
     
 }
